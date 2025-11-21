@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Home - User Profile Manager{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>User Profiles</h1>
+    <p>Manage and view all registered user profiles.</p>
+</div>
+
+<!-- Check if there are any users registered -->
+{% if users %}
+    <div class="users-grid">
+        {% for user in users %}
+            <div class="user-card">
+                <div class="user-card-header">
+                    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                    <p class="username">@{{ user.username }}</p>
+                </div>
+                <div class="user-card-body">
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    {% if user.bio %}
+                        <p><strong>Bio:</strong> {{ user.bio[:100] }}{% if user.bio|length > 100 %}...{% endif %}</p>
+                    {% endif %}
+                </div>
+                <div class="user-card-footer">
+                    <a href="{{ url_for('view_profile', user_id=user.id) }}" class="btn btn-primary">View Profile</a>
+                    <a href="{{ url_for('edit_profile', user_id=user.id) }}" class="btn btn-secondary">Edit</a>
+                    <form method="POST" action="{{ url_for('delete_profile', user_id=user.id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p>No users registered yet.</p>
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Register First User</a>
+    </div>
+{% endif %}
+{% endblock %}

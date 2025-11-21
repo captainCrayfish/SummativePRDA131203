@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.first_name }} {{ user.last_name }} - User Profile Manager{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>User Profile</h1>
+</div>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+            <p class="username">@{{ user.username }}</p>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-field">
+                <label>Email:</label>
+                <p>{{ user.email }}</p>
+            </div>
+
+            <div class="profile-field">
+                <label>Username:</label>
+                <p>{{ user.username }}</p>
+            </div>
+
+            <div class="profile-field">
+                <label>First Name:</label>
+                <p>{{ user.first_name }}</p>
+            </div>
+
+            <div class="profile-field">
+                <label>Last Name:</label>
+                <p>{{ user.last_name }}</p>
+            </div>
+
+            {% if user.bio %}
+                <div class="profile-field">
+                    <label>Bio:</label>
+                    <p>{{ user.bio }}</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="profile-actions">
+            <a href="{{ url_for('edit_profile', user_id=user.id) }}" class="btn btn-primary">Edit Profile</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Users</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

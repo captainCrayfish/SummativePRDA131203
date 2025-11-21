@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile - User Profile Manager{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit Profile</h1>
+    <p>Update {{ user.first_name }}'s profile information.</p>
+</div>
+
+<div class="form-container">
+    <form method="POST" class="registration-form">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                required 
+                value="{{ form_data.get('username', '') if form_data else user.username }}"
+                placeholder="Enter username (min. 3 characters)"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required 
+                value="{{ form_data.get('email', '') if form_data else user.email }}"
+                placeholder="Enter email address"
+            >
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input 
+                    type="text" 
+                    id="first_name" 
+                    name="first_name" 
+                    required 
+                    value="{{ form_data.get('first_name', '') if form_data else user.first_name }}"
+                    placeholder="Enter first name"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input 
+                    type="text" 
+                    id="last_name" 
+                    name="last_name" 
+                    required 
+                    value="{{ form_data.get('last_name', '') if form_data else user.last_name }}"
+                    placeholder="Enter last name"
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="bio">Bio:</label>
+            <textarea 
+                id="bio" 
+                name="bio" 
+                rows="4" 
+                placeholder="Tell us about yourself..."
+            >{{ form_data.get('bio', '') if form_data else user.bio }}</textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{{ request.referrer }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
